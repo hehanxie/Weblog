@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Struts 2配置文件的DTD信息 -->
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<!-- 配置Struts 2配置文件的根元素 -->
+<struts>
+	<!-- Struts 2的Action必须放在指定的包空间下定义 -->
+	<package name="tutorial" extends="struts-default">
+	
+		<!-- 用户拦截器定义在该元素下 -->
+		<interceptors>
+			<!-- 定义了一个名为authority的拦截器,使用的是默认stack -->
+			<interceptor name="authority" class="com.Nil.Interceptor.AuthorityInterceptor"/>
+		</interceptors>
+		
+		
+		
+		<!-- 定义全局Result -->
+		<global-results>
+			<!-- 当返回login视图名时，转入/login.html页面 -->
+			<result name="none">/login.html</result>
+		</global-results>
+		
+		<!-- 对于不同页面的action，定义不同的返回值 -->
+		<!-- 定义login的Action，该Action的实现类为com.nil.类 -->	
+		<action name="LoginAction" class="com.Nil.Action.UserAction" method="login">
+			<!-- 定义处理结果和视图资源之间映射关系 -->
+			<result name="login"> /login.html </result>
+			<result name= "success" > /index.jsp </result>
+		</action>
+		
+		<action name="RegisterAction" class="com.Nil.Action.UserAction" method="register">
+			<!-- 定义处理结果和视图资源之间映射关系 -->
+			<result name="login"> /login.html </result>
+			<result name= "error" > /register.html </result>
+		</action>
+		
+		<action name="WordsAction" class="com.Nil.Action.WordsAction">
+			<result name="success"> /index.jsp </result>
+			<result name="error"> /write.html</result> 
+		</action>
+		
+		
+		<!-- 对于页面index，定义拦截器 -->
+		<action name="index">
+			<result>/index.jsp</result>
+			<!-- 拦截器一般配置在result元素之后! -->
+			<interceptor-ref name="defaultStack"/>
+			<!-- 应用自定义拦截器 -->
+			<interceptor-ref name="authority"/>
+		</action>
+		
+	</package>
+	
+	
+</struts>
