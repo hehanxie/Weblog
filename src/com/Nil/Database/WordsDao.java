@@ -1,7 +1,9 @@
 package com.Nil.Database;
 
+import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -9,7 +11,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class WordsDao 
 {
-	public boolean save(String authorName, String content, int liker)
+	public boolean saveToDatabase(String authorName, String content, int liker)
 	{
 		Session s = null;
     	Transaction t = null;
@@ -32,6 +34,25 @@ public class WordsDao
     	catch(Exception e)
     	{
     		return false;
+    	}
+	}
+	
+	public List<Words> findAllWords()
+	{
+		Session s = null;
+		try
+		{
+			s = HibernateUtil.getSession();
+    		Criteria c = s.createCriteria(Words.class);
+    		List wordsList = c.list();
+    		return wordsList;
+    	}
+    	finally
+    	{
+    		if(s!=null)
+    		{
+    			s.close();
+    		}
     	}
 	}
 }

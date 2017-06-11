@@ -1,5 +1,10 @@
 package com.Nil.Action;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.Nil.Database.Words;
 import com.Nil.Database.WordsDao;
 import com.opensymphony.xwork2.Action;
 
@@ -9,6 +14,9 @@ public class WordsAction implements Action
 	private String authorName;
 	private String content;
 	private int liker;
+	private String time;
+	
+	private List<Words> wordsList;
 	
 	public int getNum() 
 	{
@@ -51,14 +59,57 @@ public class WordsAction implements Action
 		this.liker = liker;
 	}
 
+	public String getTime()
+	{
+		return time;
+	}
+
+	public void setTime(String time)
+	{
+		this.time = time;
+	}
+	
+	public List<Words> getWordsList()
+	{
+		return wordsList;
+	}
+
+	public void setWordsList(List<Words> wordsList)
+	{
+		this.wordsList = wordsList;
+	}
+	
 	@Override
-	public String execute() throws Exception 
+	public String execute() throws Exception
+	{
+		
+		return null;
+	}
+	
+	public String saveToDatabase() throws Exception 
 	{
 		WordsDao wd = new WordsDao();
-		if (wd.save(authorName, content, liker))
+		if (wd.saveToDatabase(authorName, content, liker))
 		{
 			return SUCCESS;
 		}
 		return ERROR;
 	}
+	
+	public String getAllWords() throws Exception 
+	{
+		wordsList =  new ArrayList();
+		WordsDao wd = new WordsDao();
+		wordsList = wd.findAllWords();
+		Collections.reverse(wordsList);
+		System.out.println("print all words");
+		return SUCCESS;
+	}
+	
+	public String deleteWords() throws Exception 
+	{
+		
+		return SUCCESS;
+	}
+	
 }

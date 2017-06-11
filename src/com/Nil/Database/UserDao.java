@@ -50,8 +50,8 @@ public class UserDao
     	   //eq是等于，gt是大于，lt是小于,or是或
     	   c.add(Restrictions.eq("username",username));
     	   User user = (User)c.uniqueResult();
-    	   System.out.println(c);
-    	   if (user.getPassword().equals(password))
+    	   //System.out.println(c);
+    	   if (user != null && user.getPassword().equals(password))
     	   {
     		   return true;
     	   }

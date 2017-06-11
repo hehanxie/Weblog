@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		session.invalidate(); 
-		%>
-			<jsp:forward page="login.jsp"/>
-		<%
-	%>
+
 </body>
 </html>

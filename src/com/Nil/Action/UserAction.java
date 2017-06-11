@@ -1,6 +1,5 @@
 package com.Nil.Action;
 
-import javax.servlet.http.HttpSession;
 
 import com.Nil.Database.UserDao;
 import com.opensymphony.xwork2.Action;

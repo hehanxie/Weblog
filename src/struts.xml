@@ -27,7 +27,7 @@
 		<action name="LoginAction" class="com.Nil.Action.UserAction" method="login">
 			<!-- 定义处理结果和视图资源之间映射关系 -->
 			<result name="login"> /login.html </result>
-			<result name= "success" > /index.jsp </result>
+			<result name= "success" type="redirectAction"> wordsList.action </result>
 		</action>
 		
 		<action name="RegisterAction" class="com.Nil.Action.UserAction" method="register">
@@ -36,15 +36,25 @@
 			<result name= "error" > /register.html </result>
 		</action>
 		
-		<action name="WordsAction" class="com.Nil.Action.WordsAction">
+		<action name="WordsAction" class="com.Nil.Action.WordsAction" method="saveToDatabase">
 			<result name="success"> /index.jsp </result>
-			<result name="error"> /write.html</result> 
+			<result name="error"> /write.jsp</result> 
+		</action>
+		
+		<action name="wordsList" class="com.Nil.Action.WordsAction" method="getAllWords">
+			<result name="success"> /index.jsp </result>
+		</action>
+		
+		<action name="deleteWords" class="com.Nil.Action.WordsAction" method="deleteWords">
+			<result name="success" type="redirectAction"> wordsList.action </result>
 		</action>
 		
 		
+		
+		
 		<!-- 对于页面index，定义拦截器 -->
-		<action name="index">
-			<result>/index.jsp</result>
+		<action name="">
+			<result>/write.jsp</result>
 			<!-- 拦截器一般配置在result元素之后! -->
 			<interceptor-ref name="defaultStack"/>
 			<!-- 应用自定义拦截器 -->
