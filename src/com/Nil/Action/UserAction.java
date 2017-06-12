@@ -1,6 +1,14 @@
 package com.Nil.Action;
 
 
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.websocket.Session;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.Nil.Database.UserDao;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -52,7 +60,15 @@ public class UserAction implements Action
 		}
 		return LOGIN;
 	}
-
+	
+	public String logout()
+	{
+		Map session = ActionContext.getContext().getSession();
+		session.clear();
+//		HttpServletRequest request = ServletActionContext.getRequest ();
+//		request.getSession().invalidate();
+		return SUCCESS;
+	}
 
 	public String register()
 	{

@@ -31,15 +31,15 @@
     <header>
   		<div class="site-branding">
     		<h1 class="site-title">
-      			<a href="">Hello</a>
+      			<a href="load.jsp">Hello</a>
     		</h1>
     		<p class="site-description">Code is Poetry</p>
  		 </div>
   		<nav class="site-navigation">
     		<ul>
    
-        		<li><a href="index.jsp">主页</a></li> 
-        		<li><a href="write.html">撰写</a></li>
+        		<li><a href="RefreshWordsListAction">主页</a></li> 
+        		<li><a href="SaveWordsAction">撰写</a></li>
     		</ul>
   		</nav>
 	</header>
@@ -47,7 +47,7 @@
     <main class="site-main posts-loop">
    
    		<div align="center" >
-    		<form action="WordsAction" method="POST">
+    		<form action="SaveWordsAction" method="POST">
 				<input type="text" name="content" >
 				<br>
 				<input type="submit" value="Done">

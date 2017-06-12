@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<%-- <s:action name="wordsList" executeResult="true" /> --%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- saved from url=(0022)https://blog.daraw.cn/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,16 +35,16 @@
 <header>
   <div class="site-branding">
     <h1 class="site-title">
-      <a>Hello</a>
+      <a href="load.jsp">Hello</a>
     </h1>
     <p class="site-description">Code is Poetry</p>
   </div>
   <nav class="site-navigation">
     <ul>
       
-      	<li><a href="wordsList" >主页</a></li>
+      	<li><a href="" >主页</a></li>
       
-        <li><a href="write.jsp">撰写</a></li>
+        <li><a href="SaveWordsAction">撰写</a></li>
       
         <li><a href="">关于</a></li>
       
@@ -56,13 +54,13 @@
 			if (session.getAttribute("username") != null)
 			{
 				%>
-				<li><a href="logout.jsp">退出</a></li>
+				<li><a href="LogoutAction">退出</a></li>
 				<% 
 			}
 			else
 			{
 				%>
-				<li><a href="login.html">登录</a></li>
+				<li><a href="LoginAction">登录</a></li>
 				<%
 			}
       	%>
@@ -90,7 +88,7 @@
       				<span>
         				<i class="icon-comments"></i>
         					<span>
-          						<s:a href="deleteWords?num=%{num}">删除</s:a>
+          						<s:a href="DeleteWordsAction?num=%{num}">删除</s:a>
         					</span>
       				</span>
     			</div>

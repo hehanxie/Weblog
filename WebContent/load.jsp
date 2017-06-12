@@ -7,11 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		session.invalidate(); 
-		%>
-			<jsp:forward page="login.html"/>
-		<%
-	%>
+	<%@ taglib prefix="s" uri="/struts-tags"%>
+	<s:action name="RefreshWordsListAction" executeResult="true" />
 </body>
 </html>

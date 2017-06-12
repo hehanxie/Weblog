@@ -6,7 +6,7 @@
 <!-- 配置Struts 2配置文件的根元素 -->
 <struts>
 	<!-- Struts 2的Action必须放在指定的包空间下定义 -->
-	<package name="tutorial" extends="struts-default">
+	<package name="com.Nil.Action" extends="struts-default">
 	
 		<!-- 用户拦截器定义在该元素下 -->
 		<interceptors>
@@ -19,43 +19,44 @@
 		<!-- 定义全局Result -->
 		<global-results>
 			<!-- 当返回login视图名时，转入/login.html页面 -->
-			<result name="none">/login.html</result>
+			<result name="none"> /WEB-INF/jsp/login.html</result>
 		</global-results>
 		
 		<!-- 对于不同页面的action，定义不同的返回值 -->
 		<!-- 定义login的Action，该Action的实现类为com.nil.类 -->	
+		
 		<action name="LoginAction" class="com.Nil.Action.UserAction" method="login">
 			<!-- 定义处理结果和视图资源之间映射关系 -->
-			<result name="login"> /login.html </result>
-			<result name="success"> /index.jsp </result>
-			<!-- <result name= "success" type="redirectAction"> wordsList.action </result> -->
+			<result name="login"> /WEB-INF/jsp/login.html </result>
+			<result name= "success" type="redirectAction"> RefreshWordsListAction.action </result>
+		</action>
+		
+		<action name="LogoutAction" class="com.Nil.Action.UserAction" method="logout">
+			<result name= "success" type="redirectAction"> RefreshWordsListAction.action </result>
 		</action>
 		
 		<action name="RegisterAction" class="com.Nil.Action.UserAction" method="register">
 			<!-- 定义处理结果和视图资源之间映射关系 -->
-			<result name="login"> /login.html </result>
-			<result name= "error" > /register.html </result>
+			<result name="login"> /WEB-INF/jsp/login.html </result>
+			<result name= "error" > /WEB-INF/jsp/register.html </result>
 		</action>
 		
-		<action name="WordsAction" class="com.Nil.Action.WordsAction" method="saveToDatabase">
+		<action name="SaveWordsAction" class="com.Nil.Action.WordsAction" method="saveToDatabase">
+			<result name="success"> type="redirectAction"> RefreshWordsListAction.action </result>
+			<result name="error"> /WEB-INF/jsp/write.jsp</result> 
+		</action>
+		
+		<action name="RefreshWordsListAction" class="com.Nil.Action.WordsAction" method="getAllWords">
 			<result name="success"> /index.jsp </result>
-			<result name="error"> /write.jsp</result> 
 		</action>
 		
-		<action name="wordsList" class="com.Nil.Action.WordsAction" method="getAllWords">
-			<result name="success"> /index.jsp </result>
+		<action name="DeleteWordsAction" class="com.Nil.Action.WordsAction" method="deleteWords">
+			<result name="success" type="redirectAction"> RefreshWordsListAction.action </result>
+			<result name="error" type="redirectAction"> RefreshWordsListAction.action </result>
 		</action>
 		
-		<action name="deleteWords" class="com.Nil.Action.WordsAction" method="deleteWords">
-			<result name="success" type="redirectAction"> wordsList.action </result>
-		</action>
 		
-		<action name="refresh" class="com.Nil.Action.WordsAction" method="refresh">
-			<result name="" type="redirectAction"> </result>
-		</action>
-		
-	
-		<!-- 对于页面index，定义拦截器 -->
+			<!-- 对于页面index，定义拦截器 -->
 		<action name="">
 			<result>/write.jsp</result>
 			<!-- 拦截器一般配置在result元素之后! -->
@@ -63,6 +64,7 @@
 			<!-- 应用自定义拦截器 -->
 			<interceptor-ref name="authority"/>
 		</action>
+
 		
 	</package>
 	

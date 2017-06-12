@@ -106,19 +106,15 @@ public class WordsAction implements Action
 		return SUCCESS;
 	}
 	
-	public void refresh() throws Exception
-	{
-		wordsList =  new ArrayList();
-		WordsDao wd = new WordsDao();
-		wordsList = wd.findAllWords();
-		Collections.reverse(wordsList);
-	}
-	
 	public String deleteWords() throws Exception 
 	{
-		int dNum = num;
-		System.out.println(dNum);
-		return SUCCESS;
+		WordsDao wd = new WordsDao();
+		String n = String.valueOf(num);
+		if (wd.deleteWords(n))
+		{
+			return SUCCESS;
+		}
+		return ERROR;
 	}
 	
 }
