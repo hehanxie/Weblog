@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-    
+
+<%-- <s:action name="wordsList" executeResult="true" /> --%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- saved from url=(0022)https://blog.daraw.cn/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,7 +30,7 @@
 </head>
 
 
-<body>
+<body onload="wordsList">
 <div class="blog">
   <div class="content">
 
@@ -50,8 +52,20 @@
       
         <li><a href="">链接</a></li>
       
-        <li><a href="logout.jsp">退出</a></li>
-      
+      	<%	
+			if (session.getAttribute("username") != null)
+			{
+				%>
+				<li><a href="logout.jsp">退出</a></li>
+				<% 
+			}
+			else
+			{
+				%>
+				<li><a href="login.html">登录</a></li>
+				<%
+			}
+      	%>
     </ul>
   </nav>
 </header>
@@ -59,10 +73,29 @@
 <main class="site-main posts-loop">
     
   <article>
+  	
   		<s:iterator value="wordsList" status="st">
   	<%-- 	<s:if test="#session.page<=#st.index&&#session.page+5>#st.index">
  --%>
-    		<h3 class="article-title"><span>Article Title</span></a></h3>
+  			
+  	
+  			<div class="article-content">
+    			<div class="entry">  
+					<p><s:property value="content" /><br></p>
+				</div>
+			</div>
+		
+  			<div class="article-footer">
+    			<div class="article-meta pull-right">
+      				<span>
+        				<i class="icon-comments"></i>
+        					<span>
+          						<s:a href="deleteWords?num=%{num}">删除</s:a>
+        					</span>
+      				</span>
+    			</div>
+  			</div>
+  			
   			<div class="article-top-meta">
     			<span class="posted-on">
       				<a  rel="bookmark">
@@ -72,26 +105,7 @@
       				</a>
     			</span>
   			</div>
-  	
-  			<div class="article-content">
-    			<div class="entry">  
-					<p><s:property value="content" /><br></p>
-					<!-- <p>23333333333333333333</p> -->
-				</div>
-			</div>
-		
-  			<div class="article-footer">
-    			<div class="article-meta pull-right">
-      				<span>
-        				<i class="icon-comments"></i>
-        					<span>
-          						<a href="deleteWords">删除</a>
-        					</span>
-      				</span>
-    			</div>
-  			</div>
   			
-  		<%-- </s:if> --%>
   		</s:iterator>
   	
   </article>

@@ -27,7 +27,8 @@
 		<action name="LoginAction" class="com.Nil.Action.UserAction" method="login">
 			<!-- 定义处理结果和视图资源之间映射关系 -->
 			<result name="login"> /login.html </result>
-			<result name= "success" type="redirectAction"> wordsList.action </result>
+			<result name="success"> /index.jsp </result>
+			<!-- <result name= "success" type="redirectAction"> wordsList.action </result> -->
 		</action>
 		
 		<action name="RegisterAction" class="com.Nil.Action.UserAction" method="register">
@@ -49,9 +50,11 @@
 			<result name="success" type="redirectAction"> wordsList.action </result>
 		</action>
 		
+		<action name="refresh" class="com.Nil.Action.WordsAction" method="refresh">
+			<result name="" type="redirectAction"> </result>
+		</action>
 		
-		
-		
+	
 		<!-- 对于页面index，定义拦截器 -->
 		<action name="">
 			<result>/write.jsp</result>

@@ -7,6 +7,7 @@ import java.util.List;
 import com.Nil.Database.Words;
 import com.Nil.Database.WordsDao;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 
 public class WordsAction implements Action
 {
@@ -102,13 +103,21 @@ public class WordsAction implements Action
 		WordsDao wd = new WordsDao();
 		wordsList = wd.findAllWords();
 		Collections.reverse(wordsList);
-		System.out.println("print all words");
 		return SUCCESS;
+	}
+	
+	public void refresh() throws Exception
+	{
+		wordsList =  new ArrayList();
+		WordsDao wd = new WordsDao();
+		wordsList = wd.findAllWords();
+		Collections.reverse(wordsList);
 	}
 	
 	public String deleteWords() throws Exception 
 	{
-		
+		int dNum = num;
+		System.out.println(dNum);
 		return SUCCESS;
 	}
 	

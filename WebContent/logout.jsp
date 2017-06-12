@@ -10,7 +10,7 @@
 	<%
 		session.invalidate(); 
 		%>
-			<jsp:forward page="login.jsp"/>
+			<jsp:forward page="login.html"/>
 		<%
 	%>
 </body>

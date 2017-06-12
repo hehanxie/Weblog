@@ -8,14 +8,9 @@
   
   <title>DaraW | Code is Poetry</title>
 
-  
   <meta name="author" content="DaraW">
   
-
-  
   <meta name="description" content="JavaScript Developer">
-  
-
   
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
