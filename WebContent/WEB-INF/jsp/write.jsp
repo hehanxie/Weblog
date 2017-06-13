@@ -48,7 +48,7 @@
    
    		<div align="center" >
     		<form action="SaveWordsAction" method="POST">
-				<input type="text" name="content" >
+				<input type="text" name="content" placeholder="AT MOST 100 WORDS" style=" width:300px; height: 150px ">
 				<br>
 				<input type="submit" value="Done">
 			</form>

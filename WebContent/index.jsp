@@ -83,16 +83,27 @@
 				</div>
 			</div>
 		
-  			<div class="article-footer">
-    			<div class="article-meta pull-right">
+			<div class="article-footer">
+    			<div class="article-meta pull-left">
       				<span>
         				<i class="icon-comments"></i>
         					<span>
           						<s:a href="DeleteWordsAction?num=%{num}">删除</s:a>
         					</span>
       				</span>
+      			</div>
+      				
+      			<div class="article-meta pull-right">
+      				<span>
+        				<i class="icon-comments"></i>
+        					<span>
+          						<s:a href="">评论</s:a>
+        					</span>
+      				</span>
     			</div>
   			</div>
+  			
+  			
   			
   			<div class="article-top-meta">
     			<span class="posted-on">
@@ -111,19 +122,7 @@
 
 
 <nav class="pagination">
-<%-- 	<%
-		String serialNum = null;
-		if (session.getAttribute("beginIndex") == null)
-		{
-			serialNum = "1";
-			int p = 1;
-		}
-		else
-		{
-			serialNum = String.valueOf(session.getAttribute("beginIndex"));
-			int p = Integer.parseInt(serialNum);
-		}
-	%> --%>
+
 	<a href="LastAction" class="pagination-next">上一页</a>
 	<a href="NextAction" class="pagination-next">下一页</a>
   
