@@ -71,6 +71,15 @@ public class UserDao
     {
     	Session s = HibernateUtil.getSession();
     	Transaction t = null;
+    	
+    	Criteria c = s.createCriteria(User.class);
+ 	   	//eq是等于，gt是大于，lt是小于,or是或
+ 	   	c.add(Restrictions.eq("username",username));
+ 	   	User user = (User)c.uniqueResult();
+ 	   	if (user != null)
+ 	   	{
+ 	   		return false;
+ 	   	}
     	try
     	{
     		t = s.beginTransaction();

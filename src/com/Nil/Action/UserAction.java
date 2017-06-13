@@ -51,36 +51,44 @@ public class UserAction implements Action
 	
 	public String login()
 	{
+		System.out.println("login");
 		UserDao dao = new UserDao();
 		if (dao.loginCheck(username, password))
 		{
 			ActionContext ctx = ActionContext.getContext();
 			ctx.getSession().put("username", username);
+			System.out.println("login success");
 			return SUCCESS;
 		}
-		return LOGIN;
+		System.out.println("login fail");
+		return "fail";
 	}
 	
 	public String logout()
 	{
 		Map session = ActionContext.getContext().getSession();
 		session.clear();
-//		HttpServletRequest request = ServletActionContext.getRequest ();
-//		request.getSession().invalidate();
 		return SUCCESS;
 	}
 
 	public String register()
 	{
-		if (password.equals(password2))
+		try
 		{
-			UserDao dao = new UserDao();
-			if (dao.registerUser(username, password))
+			if (password.equals(password2))
 			{
-				return LOGIN;
+				UserDao dao = new UserDao();
+				if (dao.registerUser(username, password))
+				{
+					return LOGIN;
+				}
 			}
-		}	
-		return ERROR;
+		}
+		catch(Exception e)
+		{
+			return "fail";
+		}
+		return "fail";
 	}
 	
 	@Override

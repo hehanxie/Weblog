@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.persister.entity.Queryable;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -39,14 +40,16 @@ public class WordsDao
     	}
 	}
 	
-	public List<Words> findAllWords()
+	public List<Words> findAllWords(int beginIndex)
 	{
 		Session s = null;
 		try
 		{
+			System.out.println("begin index is " + beginIndex);
 			s = HibernateUtil.getSession();
     		Criteria c = s.createCriteria(Words.class);
-    		List wordsList = c.list();
+    		c.addOrder(Order.desc("time"));
+    		List wordsList = c.setFirstResult(beginIndex).setMaxResults(5).list();	
     		return wordsList;
     	}
     	finally

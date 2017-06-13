@@ -3,7 +3,13 @@ package com.Nil.Action;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.Nil.Database.HibernateUtil;
 import com.Nil.Database.Words;
 import com.Nil.Database.WordsDao;
 import com.opensymphony.xwork2.Action;
@@ -16,6 +22,7 @@ public class WordsAction implements Action
 	private String content;
 	private int liker;
 	private String time;
+	private int page;
 	
 	private List<Words> wordsList;
 	
@@ -70,6 +77,16 @@ public class WordsAction implements Action
 		this.time = time;
 	}
 	
+	public int getPage()
+	{
+		return page;
+	}
+
+	public void setPage(int page)
+	{
+		this.page = page;
+	}
+	
 	public List<Words> getWordsList()
 	{
 		return wordsList;
@@ -87,22 +104,45 @@ public class WordsAction implements Action
 		return null;
 	}
 	
-	public String saveToDatabase() throws Exception 
+	public String saveToDatabase()
 	{
-		WordsDao wd = new WordsDao();
-		if (wd.saveToDatabase(authorName, content, liker))
+		System.out.println(0);
+		try
 		{
-			return SUCCESS;
+			WordsDao wd = new WordsDao();
+			if (wd.saveToDatabase(authorName, content, liker))
+			{
+				//System.out.println(1);
+				return SUCCESS;
+			}
 		}
-		return ERROR;
+		catch (Exception e)
+		{
+			//System.out.println(2);
+			return "fail";
+		}
+		//System.out.println(2);
+		return "fail";
 	}
 	
 	public String getAllWords() throws Exception 
 	{
+		int in;
+		Map session = ActionContext.getContext().getSession();
+		if (session.get("beginIndex") == null)
+		{
+			in = 0;
+		}
+		else
+		{			
+			String index = session.get("beginIndex").toString();
+			in = Integer.parseInt(index);	
+		}
+		
 		wordsList =  new ArrayList();
 		WordsDao wd = new WordsDao();
-		wordsList = wd.findAllWords();
-		Collections.reverse(wordsList);
+		wordsList = wd.findAllWords(in);
+		
 		return SUCCESS;
 	}
 	
@@ -115,6 +155,65 @@ public class WordsAction implements Action
 			return SUCCESS;
 		}
 		return ERROR;
+	}
+
+	public String lastPage()
+	{
+		int in;
+		Map session = ActionContext.getContext().getSession();
+		if (session.get("beginIndex") == null)
+		{
+			in = 0;
+		}
+		else
+		{
+			String index = session.get("beginIndex").toString();
+			System.out.println("current page is " + index);
+			in = Integer.parseInt(index);
+			in -= 5;
+			if (in <= 0)
+			{
+				in = 0;
+			}
+		}	
+		page = in;
+		
+		ActionContext ctx = ActionContext.getContext();
+		ctx.getSession().put("beginIndex", String.valueOf(in));
+		System.out.println("last page");
+		return SUCCESS;
+		
+	}
+	
+	public String nextPage()
+	{
+		int in;
+		Map session = ActionContext.getContext().getSession();
+		if (session.get("beginIndex") == null)
+		{
+			in = 5;
+		}
+		else
+		{			
+			String index = session.get("beginIndex").toString();
+			
+			in = Integer.parseInt(index);	
+			in += 5;
+			Session s = HibernateUtil.getSession();
+			Criteria c = s.createCriteria(Words.class);
+			int maxBeginIndex = c.list().size()/5 * 5;
+			if (in >= maxBeginIndex)
+			{
+				in = maxBeginIndex;
+			}
+		}
+		page = in;
+		ActionContext ctx = ActionContext.getContext();
+		ctx.getSession().put("beginIndex", String.valueOf(in));
+		
+		System.out.println("next page");
+		return SUCCESS;
+		
 	}
 	
 }

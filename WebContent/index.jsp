@@ -111,9 +111,21 @@
 
 
 <nav class="pagination">
-	
-	<a href="wordsList" class="pagination-next">上一页</a>
-	<a href="wordsList" class="pagination-next">下一页</a>
+<%-- 	<%
+		String serialNum = null;
+		if (session.getAttribute("beginIndex") == null)
+		{
+			serialNum = "1";
+			int p = 1;
+		}
+		else
+		{
+			serialNum = String.valueOf(session.getAttribute("beginIndex"));
+			int p = Integer.parseInt(serialNum);
+		}
+	%> --%>
+	<a href="LastAction" class="pagination-next">上一页</a>
+	<a href="NextAction" class="pagination-next">下一页</a>
   
 </nav>
     </main>
